@@ -1,0 +1,17 @@
+{
+  "navigationBarTitleText": "我的",
+  "navigationBarBackgroundColor": "#8bb8fc",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "cmd-avatar": "/components/cmd-avatar",
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "tui-icon": "/uni-store/components/icon/icon",
+    "tui-button": "/uni-store/components/extend/button/button",
+    "tui-list-cell": "/uni-store/components/list-cell/list-cell",
+    "tui-divider": "/uni-store/components/divider/divider",
+    "tui-loadmore": "/uni-store/components/loadmore/loadmore"
+  }
+}

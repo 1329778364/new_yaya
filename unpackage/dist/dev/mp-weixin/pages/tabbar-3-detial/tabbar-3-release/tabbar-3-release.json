@@ -1,0 +1,6 @@
+{
+  "navigationBarBackgroundColor": "#8bb8fc",
+  "usingComponents": {
+    "school-picker": "/components/schoolPicker/schoolPicker"
+  }
+}

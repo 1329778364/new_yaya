@@ -1,0 +1,10 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "tui-icon": "/uni-store/components/icon/icon",
+    "tui-drawer": "/uni-store/components/drawer/drawer",
+    "tui-loadmore": "/uni-store/components/loadmore/loadmore",
+    "tui-nomore": "/uni-store/components/nomore/nomore",
+    "tui-top-dropdown": "/uni-store/components/top-dropdown/top-dropdown"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "涯涯",
+  "navigationBarBackgroundColor": "#8bb8fc",
+  "usingComponents": {
+    "refresh": "/components/refresh",
+    "nav-tab": "/components/navTab",
+    "tab-bar4": "/components/tabBar4",
+    "school-picker": "/components/schoolPicker/schoolPicker"
+  }
+}

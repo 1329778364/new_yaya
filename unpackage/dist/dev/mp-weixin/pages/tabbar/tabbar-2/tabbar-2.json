@@ -1,0 +1,9 @@
+{
+  "navigationBarBackgroundColor": "#8bb8fc",
+  "usingComponents": {
+    "tui-icon": "/uni-store/components/icon/icon",
+    "tui-tag": "/uni-store/components/tag/tag",
+    "tui-loadmore": "/uni-store/components/loadmore/loadmore",
+    "tui-nomore": "/uni-store/components/nomore/nomore"
+  }
+}

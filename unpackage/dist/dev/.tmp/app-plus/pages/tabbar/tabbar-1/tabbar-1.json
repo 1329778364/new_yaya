@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "涯涯",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom",
+    "refresh": "/components/refresh",
+    "nav-tab": "/components/navTab",
+    "tab-bar4": "/components/tabBar4",
+    "school-picker": "/components/schoolPicker/schoolPicker"
+  }
+}

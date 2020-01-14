@@ -1,0 +1,19 @@
+<template>
+	<view>
+		实现 按照用户进行搜索功能  并能够进行筛选和 跳转地图显示
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				
+			};
+		}
+	}
+</script>
+
+<style lang="scss">
+
+</style>
