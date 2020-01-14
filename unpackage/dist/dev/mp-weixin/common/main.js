@@ -247,7 +247,6 @@ global.globalData = {
   country: "",
 
   unionid: "",
-
   stuRegister: false /* 在进入页面的时候获取该信息 */ };var _default =
 
 {
