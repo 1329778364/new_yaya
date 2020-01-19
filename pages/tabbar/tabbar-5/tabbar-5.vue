@@ -23,20 +23,18 @@
 				<uni-icons type="scan" color="white" size="28" style="margin-right: 10px;margin-left:10px"></uni-icons>
 				<uni-icons type="gear-filled" color="white" size="30" style="margin-right: 10px;margin-left:10px"></uni-icons>
 			</view>
-		</view> 
+		</view>
  
 		<view class="personCard">
 			<!-- 显示 头像，关键数据，如积分，金额等 -->				
-			 <!-- class="cu-avatar lg margin-left" style="margin-top:30rpx; width: 64px; heigh:64px; background-color: #FFFFFF;"-->
-			<view style="width: 70px; height: 70px;margin: 30px, 30px;">
-				<open-data style="margin: auto;" type="userAvatarUrl"></open-data>
-				<view class="cu-tag badge" :class="index%2==0?'cuIcon-female bg-pink':'cuIcon-male bg-blue'"></view>				
+			<!-- class="cu-avatar lg margin-left" style=" background-color: #FFFFFF;"-->
+			<view class="userInfoShow">
+				<view style="width: 128rpx; height: 128rpx;margin: 0;" @click="tryLoginWithWechat" class="cu-avatar radius margin-left" :style="[{backgroundImage:'url('+avatarUrl+ ')'}]">
+					<view class="cu-tag badge" :class="gender==0?'cuIcon-female bg-pink':'cuIcon-male bg-blue'"></view>
+				</view>
+				<view class="solid-top text-xl text-black text-bold" @click="tryLoginWithWechat">{{nickName}}</view>
+				<text class="text-black text-gray text-lg" style="right:20px;" @click="toMySelfPage">个人主页 ></text>
 			</view>
-
-			<view class="namePage">
-				<open-data class="solid-top text-xl text-black text-bold" type="userNickName" ></open-data>
-				<text class="text-black text-gray text-lg" style="right:20px;" @click="tempNavgator">个人主页</text>	
-			</view>		
 		</view>
 		
 		<view class="middleNav" style="margin-top: 230px;" >
@@ -155,7 +153,8 @@
 	import tuiListCell from "@/uni-store/components/list-cell/list-cell"
 	import tuiDivider from "@/uni-store/components/divider/divider"
 	import tuiLoadmore from "@/uni-store/components/loadmore/loadmore"
-
+	
+	import app from "../../../App.vue"
 	var db = wx.cloud.database().collection("userInfo")  
 	export default {
 		components:{cmdAvatar, uniIcons,	
@@ -166,12 +165,19 @@
 			tuiLoadmore},
 		data() {
 			return {
+				avatarUrl:"../../../static/logo.png",
+				nickName:"未登录",
+				gender:"",
+				hasUserInfo: false,
+				canIUse: wx.canIUse('button.open-type.getUserInfo'),
+				userInfo:{},
+				
 				height: 64, //header高度
 				top: 5, //标题图标距离顶部距离
 				scrollH: 0, //滚动总高度
 				opcity: 0,
 				iconOpcity: 0.5,
-				
+
 				personInfo :[{
 					nickName:"",  // 昵称
 					age:"",			
@@ -181,7 +187,7 @@
 					provinceSchool:"",
 					longitude:"", /* 用户当前位置*/
 					latitude:"",
-					location:"",
+					location:"", 
 				}],
 				
 				title: 'Hello',
@@ -261,7 +267,8 @@
 			this.iconOpcity = 0.5 * (1 - opcity < 0 ? 0 : 1 - opcity)
 		},
 		
-		onLoad() {
+		onLoad(e) {
+
 			// 读取数据库 获取个人信息
 			let obj = {};
 			// #ifdef MP-WEIXIN
@@ -282,29 +289,83 @@
 					this.scrollH = res.windowWidth
 				}
 			})
-			
 		}, 
+		
 		onShow() {
-			console.log("有没有执行onshow")
-			this.getUserInfo()
+			/* 当用用户打开此页面时时获取用户 之前加载的信息 */
+			this.setData({
+				hasUserInfo:app.globalData.hasUserInfo
+			})
+			if (app.globalData.hasUserInfo) {
+				this.setData({
+					nickName: app.globalData.userInfo.nickName,
+					gender: app.globalData.userInfo.gender,
+					userInfo: app.globalData.userInfo,
+					avatarUrl:app.globalData.userInfo.avatarUrl,
+					hasUserInfo: true
+				})
+			}
 		},
 		
 		methods: {
-			tempNavgator(){
-				uni.redirectTo({
-					url:"../../tableList/register/register"
+			tryLoginWithWechat(){
+				if(this.nickName == "未登录"){
+					console.log("没有登录")
+					uni.navigateTo({
+						url:"../../login/login"
+					})
+				}
+			},
+			
+			setData:function(obj){
+			let that = this;    
+			let keys = [];    
+			let val,data;    
+			Object.keys(obj).forEach(function(key){    
+			 keys = key.split('.');    
+			 val = obj[key];     
+			 data = that.$data;    
+			 keys.forEach(function(key2,index){    
+			     if(index+1 == keys.length){    
+			         that.$set(data,key2,val);    
+			     }else{    
+			         if(!data[key2]){    
+			            that.$set(data,key2,{});    
+						}    
+					}    
+			     data = data[key2];    
+					})    
+				});    
+			},
+			
+			getUserInfo: function(e) {
+				// 只在用户点击button时才会触发这个按钮
+			        console.log(e)
+			        app.globalData.userInfo = e.detail.userInfo
+			        this.setData({
+			            userInfo: e.detail.userInfo,
+			            hasUserInfo: true
+			        })
+			    },
+							
+			toMySelfPage(){
+				// 条状个人信息主要
+				uni.navigateTo({
+					url:"../../MySelfPage/MySelfPage"
 				})
 			},
-			getUserInfo(){  
-				console.log("用户openid ",global.globalData.openid)
+			
+			/* 用于获取app产生的数据 */
+			getAppUserInfo(){  
+				console.log("用户openid ",app.globalData.openid)
 				db.where({
-					_openid:global.globalData.openid
+					_openid:app.globalData.openid
 				}).get({
-					success: this.handleGetUserInfoSucc.bind(this)
+					success: this.handleGetAppUserInfoSucc.bind(this)
 				}) 
 			},
-			handleGetUserInfoSucc(res){
-				console.log("获取的数据为 ",res, res.data[0])
+			handleGetAppUserInfoSucc(res){
+				console.log("获取app产生的数据 ",res, res.data[0])
 				const te = res.data	
 				const personInfo = te.map((value, index)=>{
 					return{
@@ -769,6 +830,15 @@
 			padding-top: 10rpx;
 			font-size: 24rpx;
 			color: #656565;
+		}
+		.userInfoShow{
+			margin: 20rpx 0 0 20rpx;
+			display: flex;
+			flex-direction: row;
+			width: 90%;
+			justify-content: space-between;
+			align-items: center;
+			height: 128rpx;
 		}
 	
 </style>

@@ -148,6 +148,7 @@
 
 <script>
 	import schoolPicker from '../../../components/schoolPicker/schoolPicker.vue';
+	import app from "../../../App.vue"
 	
 	export default {
 		components:{schoolPicker},
@@ -191,7 +192,10 @@
 					Comments:0,
 					Views:0  
 				},
+	/* 微信系统获取的用户信息 */
+				weChatlogginInfo:{
 					
+				},	
 				allowRecommend:false,	/* 单身情况下是否允许推荐对象*/
 				
 				submitSuccess: false,   /* 是否提交数据，用于显示数据是否提交成功*/
@@ -235,14 +239,17 @@
 			};
 		},
 		onLoad() {
-			
+			this.setData({
+				weChatlogginInfo: app.globalData.userInfo
+			})
 		},
 		onShow() {
-			this.all_panel_list[0].content = this.subject;
 			
+			this.all_panel_list[0].content = this.subject;
 			/* 默认校园帮 显示的信息 */
 			this.limitTimeShow = true
 			this.addressShow = true
+			
 		},
 		
 		methods:{			
@@ -270,7 +277,7 @@
 			submitAllInformation(res){
 				// TODO 提交所有信息 发送到数据库
 				/* 判断是否进行学生认证 */
-				if (!global.globalData.stuRegister){  /* 这里的变量使用全局变量 注册之后对变量进行赋值 */
+				if (!app.globalData.stuRegister){  /* 这里的变量使用全局变量 注册之后对变量进行赋值 */
 					this.modalErrTitle = "您还没有注册"
 					this.modalErrContent = "为确保安全，请您点击确认进行注册"
 					this.submitErrModal = true
@@ -287,17 +294,17 @@
 						// TODO 与服务器交互
 						if(this.commonInfo.taskType == "校园帮"){ /* 基本的信息 和资金便可*/
 							// console.log("点击最后的提交 校园帮 公共数据", this.commonInfo, this.chargeTotle)
-							const data = Object.assign({}, this.commonInfo, {"chargeTotle":this.chargeTotle}, this.systemProductData)
+							const data = Object.assign({}, this.commonInfo, {"chargeTotle":this.chargeTotle}, this.systemProductData,{"userInfo":this.weChatlogginInfo})
 							this.postDataToServe("xiaoyuanbang", data)
 						} else if(this.commonInfo.taskType == "家教培训"){ /* 学生的具体信息*/
 							// console.log("提交 家教培训 具体信息", this.commonInfo, this.studentFindTeacherInfo, this.all_panel_list[0]["content"])
-							const data = Object.assign({}, this.commonInfo, this.studentFindTeacherInfo, {"subjectContenmt":this.all_panel_list[0]["content"]}, this.systemProductData)
+							const data = Object.assign({}, this.commonInfo, this.studentFindTeacherInfo, this.systemProductData, {"subjectContenmt":this.all_panel_list[0]["content"]},{"userInfo":this.weChatlogginInfo})
 							this.postDataToServe("jiajiaopeixun", data)
 						} else if(this.commonInfo.taskType == "考研学长帮"){
-							const data = Object.assign({}, this.commonInfo, {"chargeTotle":this.chargeTotle}, this.systemProductData)
+							const data = Object.assign({}, this.commonInfo, {"chargeTotle":this.chargeTotle}, this.systemProductData,{"userInfo":this.weChatlogginInfo})
 							this.postDataToServe("kaoyanxuezhangbang", data)
 						} else if(this.commonInfo.taskType == "就业考试咨询"){
-							const data = Object.assign({}, this.commonInfo, {"chargeTotle":this.chargeTotle}, this.systemProductData)
+							const data = Object.assign({}, this.commonInfo, {"chargeTotle":this.chargeTotle}, this.systemProductData,{"userInfo":this.weChatlogginInfo})
 							this.postDataToServe("jiuyekaoshizixun", data)
 						}
 						this.pubSuccess = true
@@ -492,7 +499,27 @@
 					this.commonInfo.taskHead = res.detail.value
 					console.log("标题",this.commonInfo.taskHead)
 				}
-			}
+			},
+			setData:function(obj){
+			let that = this;    
+			let keys = [];    
+			let val,data;    
+			Object.keys(obj).forEach(function(key){    
+			 keys = key.split('.');    
+			 val = obj[key];     
+			 data = that.$data;    
+			 keys.forEach(function(key2,index){    
+			     if(index+1 == keys.length){    
+			         that.$set(data,key2,val);    
+			     }else{    
+			         if(!data[key2]){    
+			            that.$set(data,key2,{});    
+						}    
+					}    
+			     data = data[key2];    
+					})    
+				});    
+			},
 		}
 	} 
 </script>

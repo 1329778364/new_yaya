@@ -190,7 +190,7 @@
 					this.submitErrModal = true
 					
 					// 注册成功之后 及时将注册信息 标志 true 以表示成功注册
-					global.globalData.stuRegister = true
+					getApp().globalData.stuRegister = true
 					console.log(this.commonRegisterInfo, this.studentRegisterInfo)
 					
 				}

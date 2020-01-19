@@ -1,19 +1,8 @@
 <template>
 	<view class="container_wlq">
-<!-- 		<cu-custom bgColor="bg-gradual-blue" :isBack="false">
-			<block slot="content">涯涯</block> 
-		</cu-custom> -->
-		
 		<view class='nav'> 
 			<!-- 导航栏agents导航栏标题 -->
 			<navTab class="navTab" ref="navTab" :tabTitle="tabTitle" @changeTab="changeTab"></navTab>
-			<!-- 搜索 -->
-			<!-- <view class='searchInput999' style="background-color: #F0AD4E;">
-				<view class='searchBox999'>
-					<image src='/static/icon-search.png' class='search999'></image>
-				</view>
-				<input class='input999' clearButton="auto" @confirm="search" placeholder="输入关键词"></input>
-			</view>  -->
 		</view>
 		<!-- map -->
 		<view class="map-container" v-if="currentTab ==0 ">
@@ -40,12 +29,6 @@
 						<view style="max-height:100px; margin-bottom: 0px;" class="text-content " >
 							折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！
 						</view>
-						<!-- 图片暂时不显示  -->
-						<!-- <view class="grid flex-sub padding-lr" :class="isCard?'col-3 grid-square':'col-1'">
-							<view class="bg-img" :class="isCard?'':'only-img'" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"
-							 v-for="(item,index) in isCard?9:1" :key="index">
-							</view>
-						</view> -->
 						<view class="text-gray text-sm text-right" style="padding:10rpx 30px;">
 							<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
 							<text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
@@ -53,13 +36,12 @@
 						</view>
 					</view>
 				</view>
-
 			</view>
 		</view>
 		
 		<!-- 模态弹框用于用户选择职业类型 和 用户昵称 -->
 		<view class="cu-modal" :class="modalName=='open'?'show':''">
-		<!-- <view class="cu-modal" :class="global.globalData.isNewUser?'show':''"> -->
+		<!-- <view class="cu-modal" :class="app.globalData.isNewUser?'show':''"> -->
 			<view class="cu-dialog">
 				<view class="cu-bar bg-white justify-end">
 					<view class="content">了解你才能让你找到最合适的</view>
@@ -119,45 +101,24 @@
 				</view>
 			</view>
 		</view>
-		
-		<!-- 登录 获取用户数据的提示框 -->
-		<view class="cu-modal" :class="(!hasUserInfo && canIUse)?'show':''">
-			<view class="cu-dialog">
-				<view class="cu-bar bg-white justify-end">
-					<view class="content">点击登录</view>
-					<view class="action" id="cancelModal" @tap="hidePubSuccessModal">
-						<text class="cuIcon-close text-red"></text>
-					</view>
-				</view>
-				<view class="padding-xl">为了服务质量更佳，请允许登录</view>
-				<button @click="getGlobalData">获取数据显示</button>
-				<view class="cu-bar bg-white justify-end">
-					<view class="action">
-						<button class="cu-btn line-green text-green" id="cancelModal" @tap="hidePubSuccessModal">取消</button>
-						<button open-type="getUserInfo"  class="cu-btn bg-green margin-left" id="confirmModal" @tap="hidePubSuccessModal">确定</button>
-					</view>
-				</view>
-			</view>
-		</view>
-		
 	</view>
 </template>
 
 <script>
-const util = require('../../../util/util.js');
-import refresh from '../../../components/refresh.vue';
-import navTab from '../../../components/navTab.vue';
-import tabBar4 from '../../../components/tabBar4.vue';
-import schoolPicker from '../../../components/schoolPicker/schoolPicker.vue';
+	const util = require('../../../util/util.js');
+	import refresh from '../../../components/refresh.vue';
+	import navTab from '../../../components/navTab.vue';
+	import tabBar4 from '../../../components/tabBar4.vue';
+	import schoolPicker from '../../../components/schoolPicker/schoolPicker.vue';
+	
+	import app from "../../../App.vue"
 
-
-const DB = wx.cloud.database().collection("users");
-const db = wx.cloud.database().collection("userInfo")
-// var _self;
+	const DB = wx.cloud.database().collection("users");
+	const db = wx.cloud.database().collection("userInfo")
 
 export default {
 	components: {refresh,navTab,tabBar4,schoolPicker},
-
+	
 	data(){
 		return {
 			hasUserInfo: false,
@@ -195,10 +156,10 @@ export default {
 			  id:1,
 			  iconPath:'/static/img/map/map_position.png',
 			  position:{
-			    left:(global.globalData.windowWidth/2)-36, 
-			    top: ((global.globalData.windowHeight-40) / 2)-88 ,
-			    width:70, // 20
-			    height:113 // 25
+			    left:(app.globalData.windowWidth/2)-30, 
+			    top: ((app.globalData.windowHeight-40) / 2)-30 ,
+			    width:60, // 20
+			    height:60 // 25
 			  },
 			  clickable: false
 			}, {
@@ -206,7 +167,7 @@ export default {
 			    iconPath: '/static/img/map/map_recover.png',
 			    position: {
 			      left: 300, 
-			      top: global.globalData.windowHeight-60,
+			      top: app.globalData.windowHeight-60,
 			      width: 40, // 20
 			      height: 40 ,// 25
 			    },
@@ -231,39 +192,33 @@ export default {
 		};
 	},
 	onLoad(e) {
-		var _this = this;
-		/* 获取用户信息 */
-		console.log("测试能否进入循环", global.globalData.userInfo)
-		if (global.globalData.userInfo) {
-			console.log("测试this.setData函数")
-				_this.setData({
-				userInfo: global.globalData.userInfo,
+		/* 当用用户打开时获取用户 之前加载的信息 */
+		if (app.globalData.userInfo) {
+			this.setData({
+				userInfo: app.globalData.userInfo,
 				hasUserInfo: true
-		    })
-			  console.log("已经通过过用户验证", this.userInfo)
-		    } else if (this.canIUse){
-		      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-		      // 所以此处加入 callback 以防止这种情况
-		      app.userInfoReadyCallback = res => {
-		        _this.setData({
-		          userInfo: res.userInfo,
-		          hasUserInfo: true
-		        })
-		      }
-			  console.log("通过canIuse进行用户验证", this.userInfo)
-		    } else {
-		      // 在没有 open-type=getUserInfo 版本的兼容处理
-		      wx.getUserInfo({
-		        success: res => {
-		          global.globalData.userInfo = res.userInfo
-		          _this.setData({
-		            userInfo: res.userInfo,
-		            hasUserInfo: true
-		          })
-		        }
-		      })
-			  console.log("通过getUserInfo 获取验证", this.userInfo)
-		    }
+			})
+		} else if (this.canIUse) {
+			// 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+			// 所以此处加入 callback 以防止这种情况
+			app.userInfoReadyCallback = res => {
+				this.setData({
+					userInfo: res.userInfo,
+					hasUserInfo: true
+				})
+			}
+		} else {
+			// 在没有 open-type=getUserInfo 版本的兼容处理
+			wx.getUserInfo({
+				success: res => {
+					app.globalData.userInfo = res.userInfo
+					this.setData({
+						userInfo: res.userInfo,
+						hasUserInfo: true
+					})
+				}
+			})
+		}
 	},
 	
 	onHide() {},
@@ -273,7 +228,7 @@ export default {
 	},
 	
 	onShow(){
-		if (global.globalData.isNewUser){
+		if (app.globalData.isNewUser){
 			this.modalName = "open" 
 			console.log("没有注册 打开弹框 获取信息")
 		}
@@ -284,28 +239,7 @@ export default {
 		},
 	  
 	methods: {
-		getGlobalData(){
-			
-			console.log(global.globalData.userInfo)
-			_this.setData({
-				userInfo:"wddS",
-				hasUserInfo:true
-			})
-			console.log(this.userInfo)
-			console.log(this.hasUserInfo)
-			
-		},
-		
-		hidePubSuccessModal(res){
-			console.log("执行",res)
-			global.globalData.userInfo = res.detail.userInfo
-			this.userInfo = res.detail.userInfo,
-			this.hasUserInfo = true
-			console.log("获取到的用户个人信息",this.userInfo)
-			console.log("canIuse", this.canIUse)
-		},
-		
-		
+	
 		// 分享页面
 		onShareAppMessage(){
 		  return { 
@@ -360,8 +294,8 @@ export default {
 					id: value._id,
 					latitude: value.latitude,
 					longitude: value.longitude,
-					width: 20,
-					height: 25,
+					width: 50,
+					height: 50,
 					message:value.message,
 					contact:value.contact,
 					type:value.type,
@@ -435,7 +369,7 @@ export default {
 				  data:data
 				  ,success(res){
 					  console.log("新用户注册 提交数据成功",res)
-					  global.globalData.isNewUser = false
+					  app.globalData.isNewUser = false
 				  }
 				})
 				console.log(this.age, this.nickName,this.sex,this.schoolData,this.career)

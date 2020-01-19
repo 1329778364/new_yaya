@@ -21,6 +21,7 @@
 </template> 
 
 <script>
+	import app from"../../../App.vue"
 export default {
 	data() {
 		return {
@@ -32,6 +33,12 @@ export default {
 		// setTimeout(() => {
 		this.active = true;
 		// }, 500);
+		if (!app.globalData.hasUserInfo){
+			console.log("没有个人信息,跳转登录页面")
+			uni.navigateTo({
+				url:"../../login/login"
+			})
+		}
 	},
 	onHide() {
 		this.active = false;

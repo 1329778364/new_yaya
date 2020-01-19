@@ -1,27 +1,39 @@
 <script>
 	import Vue from 'vue'
 	
-	global.globalData={
-			windowHeight:0,
-			windowWidth:0,
-			isNewUser:false,
-			
-			userInfo:"",
-			
-			openid:"", // 用户唯一标志
-			appid:""  ,// 所用的小程序id
-			nickName:"",
-			gender:"",
-			avatarUrl: "",
-			city:"",
-			province: "",
-			country: "",
-			
-			unionid:"",
-			stuRegister:false  /* 在进入页面的时候获取该信息 */
-		}
 	export default {
-		onLaunch: function() { 
+		globalData:{
+				windowHeight:0,
+				windowWidth:0,
+				isNewUser:false,
+				
+				userInfo:"",
+				hasUserInfo: false,
+				
+				sessionCode:"",
+				
+				openid:"", // 用户唯一标志
+				appid:""  ,// 所用的小程序id
+
+				unionid:"",
+				stuRegister:false  /* 在进入页面的时候获取该信息 */
+			},
+		onLaunch: function() {
+			// 展示本地存储能力
+			        var logs = wx.getStorageSync('logs') || []
+			        logs.unshift(Date.now())
+			        wx.setStorageSync('logs', logs)
+
+			// 登录 获取sessioncode
+			// var _this = this;
+			wx.login({
+				success: (res) => {
+					// 发送 res.code 到后台换取 openId, sessionKey, unionId
+					console.log("登录时获取的信息 主要是sessionCode", res, this)
+					this.globalData.sessionCode = res.code
+				}
+			})
+			
 			// 生命周期函数 当页面加载时进行调用
 			// 初始化云开发环境
 			wx.cloud.init({
@@ -36,8 +48,8 @@
 				name:"getopenid",
 				success(res){
 					console.log("获取用户openid信息成功。。",res)
-					global.globalData.openid = res.result.openid,
-					global.globalData.appid = res.result.appid
+					getApp().globalData.openid = res.result.openid,
+					getApp().globalData.appid = res.result.appid
 				} 
 			})
 			
@@ -49,9 +61,9 @@
 						wx.getUserInfo({
 							success: res => {
 							// 可以将 res 发送给后台解码出 unionId
-							global.globalData.userInfo = res.userInfo
-							console.log("APP.vue中的获取用户信息", global.globalData.userInfo)
-							
+							this.globalData.userInfo = res.userInfo
+							this.globalData.hasUserInfo = true
+							console.log("APP.vue中的获取用户信息", this.globalData.userInfo)
 							if (this.userInfoReadyCallback) {
 								this.userInfoReadyCallback(res)
 								}
@@ -61,49 +73,50 @@
 			    }
 			})
 			
+			/* 检查是否进行学生注册 */
 			setTimeout(function(){
 				stuRegistDatabase.where({
-					_openid: global.globalData.openid
+					_openid: getApp().globalData.openid
 				}).get({
 					success(res){
 						console.log(res.data.length)
 						if (res.data.length == 0){
-							global.globalData.stuRegister = false
-							console.log("是一个新学生用户需要进行注册，目前状态",global.globalData.stuRegister)
+							getApp().globalData.stuRegister = false
+							console.log("是一个新学生用户需要进行注册，目前状态",getApp().globalData.stuRegister)
 						}
 						else{
 							console.log("数据库中有该学生的用户信息",res)
-							global.globalData.stuRegister = true
+							getApp().globalData.stuRegister = true
 						}	
 					}
 				}) 
 			},3000) 
 			
-			setTimeout(function(){
-				db.where({
-					_openid: global.globalData.openid
-				}).get({
-					success(res){
-						console.log(res.data.length)
-						if (res.data.length == 0){
-							global.globalData.isNewUser = true
-							/* 公共的基础注册信息 */
-							console.log("是一个新用户需要进行注册，目前状态",global.globalData.isNewUser)
-						}
-						else{
-							console.log("数据库中有该用户信息",res)
-							global.globalData.isNewUser = false
-						}	
-					}
-				})
-			},3000) 
+			// setTimeout(function(){
+			// 	db.where({
+			// 		_openid: getApp().globalData.openid
+			// 	}).get({
+			// 		success(res){
+			// 			console.log(res.data.length)
+			// 			if (res.data.length == 0){
+			// 				getApp().globalData.isNewUser = true
+			// 				/* 公共的基础注册信息 */
+			// 				console.log("是一个新用户需要进行注册，目前状态",getApp().globalData.isNewUser)
+			// 			}
+			// 			else{
+			// 				console.log("数据库中有该用户信息",res)
+			// 				getApp().globalData.isNewUser = false
+			// 			}	
+			// 		}
+			// 	})
+			// },3000) 
 			
 			try {
 				const res = uni.getSystemInfoSync();
-				global.globalData.windowHeight = res.windowHeight;
-				global.globalData.windowWidth = res.windowWidth;
+				this.globalData.windowHeight = res.windowHeight;
+				this.globalData.windowWidth = res.windowWidth;
 				console.log(res)
-				console.log("onlaunch时得到的手机尺寸数据",global.globalData.windowHeight, global.globalData.windowWidth)
+				console.log("onlaunch时得到的手机尺寸数据",this.globalData.windowHeight, this.globalData.windowWidth)
 			} catch (e) {  
 				console.log("无法获取手机信息")
 			}
@@ -131,84 +144,7 @@
 					Vue.prototype.CustomBar = e.statusBarHeight + e.titleBarHeight;
 					// #endif
 				}
-			})
-
-			Vue.prototype.ColorList = [{
-					title: '嫣红',
-					name: 'red',
-					color: '#e54d42'
-				},
-				{
-					title: '桔橙',
-					name: 'orange',
-					color: '#f37b1d'
-				},
-				{
-					title: '明黄',
-					name: 'yellow',
-					color: '#fbbd08'
-				},
-				{
-					title: '橄榄',
-					name: 'olive',
-					color: '#8dc63f'
-				},
-				{
-					title: '森绿',
-					name: 'green',
-					color: '#39b54a'
-				},
-				{
-					title: '天青',
-					name: 'cyan',
-					color: '#1cbbb4'
-				},
-				{
-					title: '海蓝',
-					name: 'blue',
-					color: '#0081ff'
-				},
-				{
-					title: '姹紫',
-					name: 'purple',
-					color: '#6739b6'
-				},
-				{
-					title: '木槿',
-					name: 'mauve',
-					color: '#9c26b0'
-				},
-				{
-					title: '桃粉',
-					name: 'pink',
-					color: '#e03997'
-				},
-				{
-					title: '棕褐',
-					name: 'brown',
-					color: '#a5673f'
-				},
-				{
-					title: '玄灰',
-					name: 'grey',
-					color: '#8799a3'
-				},
-				{
-					title: '草灰',
-					name: 'gray',
-					color: '#aaaaaa'
-				},
-				{
-					title: '墨黑',
-					name: 'black',
-					color: '#333333'
-				},
-				{
-					title: '雅白',
-					name: 'white',
-					color: '#ffffff'
-				},
-			]
+			}) 
 
 		},
 		onShow: function() {
