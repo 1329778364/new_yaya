@@ -7,11 +7,11 @@
 		</view>
 	</view>
 	</view>
-</template>
+</template> 
 
 <script>
 	export default {
-		name: 'refresh',
+		name: 'refresh', 
 		props: {
 			  isTop:{
 				  type:Number,

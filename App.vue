@@ -6,7 +6,7 @@
 				windowHeight:0,
 				windowWidth:0,
 				isNewUser:false,
-				
+				 
 				userInfo:"",
 				hasUserInfo: false,
 				
@@ -158,15 +158,23 @@
 </script>
 
 <style>
-
-	/* 顶部导航栏和input框使用到的样式 */
+	
+	/*每个页面公共css */
 	@import "./common/uni.css";
-	/* colorUI中的样式使用 */
+	/* 引入图标库 */
+	@import "./common/icon.css";
+	/* 引入动画库 */
+	@import "./common/animate.css";
+	
+	/* colorUI中的样式使用 */ 
 	@import "./colorui/main.css";
 	@import "./colorui/icon.css";
+	
 	/* 商城模板的样式 */
-	@import "./common/app.css";
+	@import "./common/app.css";  
 
+	/* 引入图标字体库 */
+	@import url("./common/iconfont.css");
 
 
 	.nav-list {

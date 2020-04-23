@@ -148,6 +148,7 @@
 
 <script>
 	import schoolPicker from '../../../components/schoolPicker/schoolPicker.vue';
+	
 	import app from "../../../App.vue"
 	
 	export default {
@@ -525,7 +526,7 @@
 </script>
 
 <style lang="scss">
-	@import "../../../uni-app/common/uni-nvue.css";
+	@import "../../../common/uni-nvue.css";
 	.cu-form-group .title {
 		min-width: calc(4em + 15px);
 	}

@@ -48,15 +48,8 @@
 </template>
 
 <script>
-	import tuiIcon from "@../../uni-store/components/icon/icon"
-	import tuiTag from "@../../uni-store/components/tag/tag"
-	import tuiActionsheet from "@../../uni-store/components/actionsheet/actionsheet"
+
 	export default {
-		components: {
-			tuiIcon,
-			tuiTag,
-			tuiActionsheet
-		},
 		data() {
 			return {
 				history: [

@@ -1,4 +1,19 @@
 <template>
+	<view>
+	<!-- #ifdef MP-WEIXIN || MP-BAIDU -->
+	<uni-nav-bar border="#EEEEEE" statusBar=true :fixed="false" color="#333333" background-color="#FFFFFF" @clickLeft="showCity">
+		<block slot="left">
+			<view class="city">
+				<view><text class="uni-nav-bar-text">{{ city }}</text></view>
+				<view class="icon iconfont icon-xialazhankai"></view>
+			</view>
+		</block>
+		<view class="input-view">
+			<view class="icon iconfont icon-sousuo"></view>
+			<input confirm-type="search" class="nav-bar-input" type="text" placeholder="输入搜索关键词" @confirm="confirm">
+		</view>
+	</uni-nav-bar>
+	<!-- #endif -->
 	<view class="container_wlq">
 		<view class='nav'> 
 			<!-- 导航栏agents导航栏标题 -->
@@ -102,25 +117,34 @@
 			</view>
 		</view>
 	</view>
+	</view>
 </template>
 
 <script>
-	const util = require('../../../util/util.js');
-	import refresh from '../../../components/refresh.vue';
-	import navTab from '../../../components/navTab.vue';
-	import tabBar4 from '../../../components/tabBar4.vue';
-	import schoolPicker from '../../../components/schoolPicker/schoolPicker.vue';
+	import uniIcons from '../../../components/uni-icons/uni-icons.vue'
+	import uniNavBar from '../../../components/uni-nav-bar/uni-nav-bar.vue';
+	import uniStatusBar from '../../../components/uni-status-bar/uni-status-bar.vue';
 	
+	import refresh from '../../../components/refresh.vue'; 
+	import navTab from '../../../components/navTab.vue';
+	import schoolPicker from '../../../components/schoolPicker/schoolPicker.vue';
 	import app from "../../../App.vue"
 
 	const DB = wx.cloud.database().collection("users");
 	const db = wx.cloud.database().collection("userInfo")
 
 export default {
-	components: {refresh,navTab,tabBar4,schoolPicker},
+	components: {
+		uniNavBar,
+		uniStatusBar,
+		refresh,
+		navTab,
+		schoolPicker},
 	
 	data(){
 		return {
+			city:"北京",
+			
 			hasUserInfo: false,
 			canIUse: wx.canIUse('button.open-type.getUserInfo'),
 			userInfo:{},
@@ -583,7 +607,45 @@ export default {
 		color: #999999;
 		box-shadow: 0 0 10upx 0 rgba(0, 0, 0, 0.10);
 		border-radius: 10upx;
-	}
-	
+	}	
 }
+.uni-nav-bar-text {
+		font-size: 30rpx;
+	}
+
+	.city {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+		margin-left: 4px;
+	}
+	.city view{
+		margin: 2px;
+	}
+
+	.input-view {
+		display: flex;
+		flex-direction: row;
+		width: 180px;
+		background-color: #f8f8f8;
+		height: 30px;
+		border-radius: 15px;
+		padding: 0 15px;
+		flex-wrap: nowrap;
+		margin: 7px 0;
+		line-height: 30px;
+	}
+
+	.input-uni-icon {
+		line-height: 30px;
+	}
+
+	.nav-bar-input {
+		height: 30px;
+		line-height: 30px;
+		padding: 0 5px;
+		font-size: 30rpx;
+		background-color: #f8f8f8;
+	}
 </style>
