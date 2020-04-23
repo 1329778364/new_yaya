@@ -145,24 +145,9 @@
 </template> 
 
 <script>
-	import cmdAvatar from "@/components/cmd-avatar.vue";
-	import uniIcons from  "@/components/uni-icons/uni-icons.vue"
-	
-	import tuiIcon from "@/uni-store/components/icon/icon"
-	import tuiButton from "@/uni-store/components/extend/button/button"
-	import tuiListCell from "@/uni-store/components/list-cell/list-cell"
-	import tuiDivider from "@/uni-store/components/divider/divider"
-	import tuiLoadmore from "@/uni-store/components/loadmore/loadmore"
-	
 	import app from "../../../App.vue"
 	var db = wx.cloud.database().collection("userInfo")  
 	export default {
-		components:{cmdAvatar, uniIcons,	
-			tuiIcon,
-			tuiButton,
-			tuiListCell,
-			tuiDivider,
-			tuiLoadmore},
 		data() {
 			return {
 				avatarUrl:"../../../static/logo.png",
@@ -392,11 +377,7 @@
 
 <style lang="scss">
 	
-	.contain{
-		// background-color: #EEEEEE;
-		// width: 100%;
-		// height: 900px;
-		
+	.contain{		
 		.topSelection{
 			position: absolute;
 			top: 0px;

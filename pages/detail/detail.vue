@@ -31,7 +31,6 @@
 </template>
 
 <script>
-	// const util = require('../../utils/util.js')
 	const DB = wx.cloud.database().collection("users")
 	
 	export default {

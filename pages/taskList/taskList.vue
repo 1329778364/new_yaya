@@ -259,23 +259,22 @@
 		<tui-loadmore :visible="loadding" :index="3" type="red"></tui-loadmore>
 		<tui-nomore :visible="!pullUpOn && isList" bgcolor="#f7f7f7"></tui-nomore>
 		<!--加载loadding-->
-	</view>
+	</view> 
 </template>
 
 <script>
-	import tuiIcon from "@/uni-store/components/icon/icon"
-	import tuiDrawer from "@/uni-store/components/drawer/drawer"
-	import tuiLoadmore from "@/uni-store/components/loadmore/loadmore"
-	import tuiNomore from "@/uni-store/components/nomore/nomore"
-	import tuiTopDropdown from "@/uni-store/components/top-dropdown/top-dropdown"
+	import tuiIcon from "../../components/icon/icon"
+	import tuiDrawer from "../../components/drawer/drawer"
+	import tuiLoadmore from "../../components/loadmore/loadmore"
+	import tuiNomore from "../../components/nomore/nomore"
+	import tuiTopDropdown from "../../components/top-dropdown/top-dropdown"
 	export default {
-		
 		components: {
 			tuiIcon,
 			tuiDrawer,
 			tuiLoadmore,
 			tuiNomore,
-			tuiTopDropdown
+			tuiTopDropdown  
 		},
 		data() {
 			return {

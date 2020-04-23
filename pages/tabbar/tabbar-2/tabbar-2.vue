@@ -78,7 +78,7 @@
 				<text>{{item.name}}</text>
 			</view>
 		</view>
-	
+	 
 		
 		<view class="firstTitle bg-white margin-top-sm topRadius">
 			<text>娱乐休闲</text>
@@ -147,17 +147,8 @@
 </template>
 
 <script>
-	import tuiIcon from "@/uni-store/components/icon/icon"
-	import tuiTag from "@/uni-store/components/tag/tag"
-	import tuiLoadmore from "@/uni-store/components/loadmore/loadmore"
-	import tuiNomore from "@/uni-store/components/nomore/nomore"
 	export default {
-		components: {
-			tuiIcon,
-			tuiTag,
-			tuiLoadmore,
-			tuiNomore 
-		},
+ 
 		data() { 
 			return {
 				/* 热门搜索标签 */
