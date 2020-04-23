@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "schoolPicker": "/components/schoolPicker/schoolPicker",
     "school-picker": "/components/schoolPicker/schoolPicker"
   }
 }

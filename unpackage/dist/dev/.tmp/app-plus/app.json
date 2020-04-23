@@ -18,55 +18,67 @@
     "pages/common/common",
     "pages/common/commonDetail/commonDetail",
     "pages/classify/classify",
-    "pages/news-search/news-search"
+    "pages/news-search/news-search",
+    "pages/tableList/postTask/postTask",
+    "pages/taskList/taskList",
+    "pages/tableList/studentRegister/studentRegister",
+    "pages/tableList/teachRegister/teachRegister",
+    "pages/login/login",
+    "pages/MySelfPage/MySelfPage"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true,
+    "enablePullDownRefresh": false,
     "onReachBottomDistance": 50,
     "navigationBarTitleText": "涯涯"
   },
   "tabBar": {
     "borderStyle": "black",
-    "backgroundColor": "#F8F8F8",
-    "color": "#8F8F94",
-    "selectedColor": "#f33e54",
+    "backgroundColor": "#FFFFFF",
+    "color": "#333333",
+    "selectedColor": "#FFDF34",
     "list": [
       {
         "pagePath": "pages/tabbar/tabbar-1/tabbar-1",
-        "iconPath": "static/img/tabbar/home.png",
-        "selectedIconPath": "static/img/tabbar/homeactive.png",
-        "text": "首页"
+        "iconPath": "./static/img/tabbar/near.png",
+        "selectedIconPath": "./static/img/tabbar/near_active.png",
+        "text": "附近的人"
       },
       {
         "pagePath": "pages/tabbar/tabbar-2/tabbar-2",
-        "iconPath": "static/img/tabbar/guanzhu.png",
-        "selectedIconPath": "static/img/tabbar/guanzhuactive.png",
-        "text": "推荐"
+        "iconPath": "./static/img/tabbar/home.png",
+        "selectedIconPath": "./static/img/tabbar/home_active.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/tabbar/tabbar-3/tabbar-3",
+        "iconPath": "./static/img/tabbar/more.png",
+        "selectedIconPath": "./static/img/tabbar/moreactive.png",
+        "text": "发布"
       },
       {
         "pagePath": "pages/tabbar/tabbar-4/tabbar-4",
-        "iconPath": "static/img/tabbar/news.png",
-        "selectedIconPath": "static/img/tabbar/newsactive.png",
+        "iconPath": "./static/img/tabbar/chat.png",
+        "selectedIconPath": "./static/img/tabbar/chat_active.png",
         "text": "消息"
       },
       {
         "pagePath": "pages/tabbar/tabbar-5/tabbar-5",
-        "iconPath": "static/img/tabbar/me.png",
-        "selectedIconPath": "static/img/tabbar/meactive.png",
+        "iconPath": "./static/img/tabbar/profile.png",
+        "selectedIconPath": "./static/img/tabbar/profileactive.png",
         "text": "我的"
       }
     ]
   },
-  "nvueCompiler": "weex",
+  "nvueCompiler": "uni-app",
   "renderer": "auto",
   "splashscreen": {
     "alwaysShowBeforeRender": true,
     "autoclose": false
   },
   "appname": "yaya",
-  "compilerVersion": "2.3.7",
+  "compilerVersion": "2.5.1",
   "usingComponents": {
     "basics": "/colorui/components/basics/home",
     "components": "/colorui/components/component/home",

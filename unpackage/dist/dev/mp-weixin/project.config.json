@@ -30,9 +30,9 @@
 			"current": 0,
 			"list": [
 				{
-					"name": "register",
+					"name": "tabbar-1",
 					"id": 0,
-					"pathName": "/pages/tableList/register/register"
+					"pathName": "pages/tabbar/tabbar-1/tabbar-1"
 				},
 				{
 					"name": "tarBar5",
@@ -40,14 +40,9 @@
 					"pathName": "pages/tabbar/tabbar-5/tabbar-5"
 				},
 				{
-					"name": "index",
+					"name": "login",
 					"id": 2,
-					"pathName": "pages/tabbar/tabbar-1/tabbar-1"
-				},
-				{
-					"name": "detail",
-					"id": 3,
-					"pathName": "pages/detail/detail"
+					"pathName": "/pages/login/login"
 				}
 			]
 		}

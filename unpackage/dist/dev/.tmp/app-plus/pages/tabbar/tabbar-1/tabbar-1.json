@@ -1,11 +1,12 @@
 {
   "navigationBarTitleText": "涯涯",
+  "navigationBarBackgroundColor": "#8bb8fc",
   "navigationStyle": "custom",
   "usingComponents": {
-    "cu-custom": "/colorui/components/cu-custom",
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
+    "uni-status-bar": "/components/uni-status-bar/uni-status-bar",
     "refresh": "/components/refresh",
     "nav-tab": "/components/navTab",
-    "tab-bar4": "/components/tabBar4",
     "school-picker": "/components/schoolPicker/schoolPicker"
   }
 }

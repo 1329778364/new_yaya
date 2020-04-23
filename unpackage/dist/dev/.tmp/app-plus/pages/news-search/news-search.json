@@ -4,9 +4,5 @@
   "navigationBarTextStyle": "black",
   "backgroundColorTop": "#fff",
   "backgroundColorBottom": "#fff",
-  "usingComponents": {
-    "tui-icon": "/uni-store/components/icon/icon",
-    "tui-tag": "/uni-store/components/tag/tag",
-    "tui-actionsheet": "/uni-store/components/actionsheet/actionsheet"
-  }
+  "usingComponents": {}
 }

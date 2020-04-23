@@ -1,5 +1,6 @@
 {
+  "navigationBarBackgroundColor": "#8bb8fc",
   "usingComponents": {
-    "cu-custom": "/colorui/components/cu-custom"
+    "school-picker": "/components/schoolPicker/schoolPicker"
   }
 }
