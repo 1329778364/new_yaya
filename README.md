@@ -90,24 +90,31 @@
 
 
 ### 界面展示图
+
 #### 这是首页的
+
 `通过地图图标来显示周围有哪些还没有接单的任务`
+
 ![image](./static/img/final_img/2.png)
 
 #### 这是任务的详细信息
+
 ![image](./static/img/final_img/1.png)
 
 #### 第二页
+
 `展示所有功能供用户选择`
 
 ![image](./static/img/final_img/3.png)
 
 #### 任务发布页与接任务选择页
+
 ![image](./static/img/final_img/shouye2.png)
 
 #### 任务发布详情页表单
 
 ![image](./static/img/final_img/fabu.png)
+
 #### 个人主页
 
 ![image](./static/img/final_img/geren.png)
